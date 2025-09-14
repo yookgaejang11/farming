@@ -5,6 +5,16 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public enum playerHoe
+    {
+        basic,
+        rare
+    }
+
+    public enum playerWaterCan
+    {
+        basic, rare
+    }
     public enum seedType
     {
         None,
@@ -24,6 +34,8 @@ public class GameManager : MonoBehaviour
         ice_ball
     }
 
+    public playerHoe hoe;
+    public playerWaterCan waterCan;
     public whether_type whether;
     public seedType seeds;
     public Text PlayerMoneyTxt;
@@ -39,6 +51,13 @@ public class GameManager : MonoBehaviour
     public int carrot_seed = 0;
     public int blue_corn_seed = 0;
     public int red_wheat_seed = 0;
+
+
+    public int wheat = 0;
+    public int corn = 0;
+    public int carrot = 0;
+    public int blue_corn = 0;
+    public int red_wheat = 0;
     private void Awake()
     {
         if(instance == null)
@@ -55,12 +74,53 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(Timer());
+        int whetherNum = Random.Range(1, 6);
+        switch (whetherNum)
+        {
+            case 1:
+                whether = whether_type.sunny;
+                break;
+            case 2:
+                whether = whether_type.cloudy;
+                break;
+            case 3:
+                whether = whether_type.rainy;
+                break;
+            case 4:
+                whether = whether_type.storm;
+                break;
+            case 5:
+                whether = whether_type.ice_ball;
+                break;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         PlayerMoneyTxt.text = player.haveMoney.ToString();
+        if(inGameTime == 0)
+        {
+            int whetherNum = Random.Range(1, 6);
+            switch(whetherNum)
+            {
+                case 1:
+                    whether = whether_type.sunny;
+                    break;
+                case 2:
+                    whether= whether_type.cloudy;
+                    break;
+                case 3:
+                    whether = whether_type.rainy;
+                    break;
+                case 4:
+                    whether = whether_type.storm;
+                    break;
+                case 5:
+                    whether = whether_type.ice_ball;
+                    break;
+            }
+        }
     }
 
     IEnumerator Timer()

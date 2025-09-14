@@ -44,6 +44,7 @@ public class CropManager : MonoBehaviour
             {
                 seedingUI.SetActive(false);
                 canSeeding = false;
+                GameManager.Instance.seeds = seedType.None;
             }
         }
 
@@ -52,8 +53,9 @@ public class CropManager : MonoBehaviour
         
         if(hit.collider != null )
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Mouse0) && canSeeding)
             {
+                
                 GameObject spawnObj;
                 if (hit.collider.gameObject.GetComponent<Soil>().canSet)
                 {
@@ -70,8 +72,33 @@ public class CropManager : MonoBehaviour
                             else
                             {
                                 GameManager.Instance.wheat_seed -= 1;
-                                spawnObj = GameObject.Instantiate(wheatObj, Vector3.zero, Quaternion.identity, hit.collider.gameObject.transform);
-                                hit.collider.gameObject.GetComponent<Soil>().canSet = false;
+                                spawnObj = GameObject.Instantiate(wheatObj, Vector3.zero, Quaternion.identity);
+                                List<Transform> points = new List<Transform>();
+                                foreach(Transform p in hit.collider.gameObject.transform.GetChild(0).transform)
+                                {
+                                    Debug.Log(p.name);
+                                    points.Add(p);
+                                }
+                                foreach (Transform p in points)
+                                {
+                                    if(p.transform.childCount == 0)
+                                    {
+                                        spawnObj.transform.parent = p;
+                                        Debug.Log(points.IndexOf(p));
+                                        hit.collider.gameObject.GetComponent<Soil>().crops[points.IndexOf(p)] = spawnObj.gameObject.GetComponent<Crop>();
+                                        Debug.Log(hit.collider.gameObject.GetComponent<Soil>().crops[points.IndexOf(p)].gameObject.name);
+                                        hit.collider.gameObject.GetComponent<Soil>().cropCount += 1;
+                                        break;
+                                        
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+
+
+
                                 spawnObj.transform.localPosition = Vector3.zero;
                             }
                             
@@ -84,8 +111,34 @@ public class CropManager : MonoBehaviour
                             }else
                             {
                                 GameManager.Instance.corn_seed -= 1;
-                                spawnObj = GameObject.Instantiate(cornObj, Vector2.zero, Quaternion.identity, hit.collider.gameObject.transform);
-                                hit.collider.gameObject.GetComponent<Soil>().canSet = false;
+                                spawnObj = GameObject.Instantiate(cornObj, Vector2.zero, Quaternion.identity);
+                                List<Transform> points = new List<Transform>();
+                                foreach (Transform p in hit.collider.gameObject.transform.GetChild(0).transform)
+                                {
+                                    points.Add(p);
+                                }
+                                hit.collider.gameObject.GetComponent<Soil>().cropCount = 0;
+                                foreach (Transform p in points)
+                                {
+                                    if (p.transform.GetChild(0) != null)
+                                    {
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        spawnObj.transform.parent = p;
+
+                                        hit.collider.gameObject.GetComponent<Soil>().cropCount += 1;
+                                        break;
+                                    }
+                                }
+
+                                if (hit.collider.gameObject.GetComponent<Soil>().cropCount == 9)
+                                {
+                                    hit.collider.gameObject.GetComponent<Soil>().canSet = false;
+                                }
+
+                                spawnObj.transform.localPosition = Vector3.zero;
                                 break;
                             }
                            
@@ -98,8 +151,34 @@ public class CropManager : MonoBehaviour
                             else
                             {
                                 GameManager.Instance.carrot_seed -= 1;
-                                spawnObj = GameObject.Instantiate(carrotObj, Vector2.zero, Quaternion.identity, hit.collider.gameObject.transform);
-                                hit.collider.gameObject.GetComponent<Soil>().canSet = false;
+                                spawnObj = GameObject.Instantiate(carrotObj, Vector2.zero, Quaternion.identity);
+                                List<Transform> points = new List<Transform>();
+                                foreach (Transform p in hit.collider.gameObject.transform.GetChild(0).transform)
+                                {
+                                    points.Add(p);
+                                }
+                                hit.collider.gameObject.GetComponent<Soil>().cropCount = 0;
+                                foreach (Transform p in points)
+                                {
+                                    if (p.transform.GetChild(0) != null)
+                                    {
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        spawnObj.transform.parent = p;
+
+                                        hit.collider.gameObject.GetComponent<Soil>().cropCount += 1;
+                                        break;
+                                    }
+                                }
+
+                                if (hit.collider.gameObject.GetComponent<Soil>().cropCount == 9)
+                                {
+                                    hit.collider.gameObject.GetComponent<Soil>().canSet = false;
+                                }
+
+                                spawnObj.transform.localPosition = Vector3.zero;
                                 break;
                             }
                             
@@ -112,8 +191,34 @@ public class CropManager : MonoBehaviour
                             else
                             {
                                 GameManager.Instance.blue_corn_seed -= 1;
-                                spawnObj = GameObject.Instantiate(bluecornObj, Vector2.zero, Quaternion.identity, hit.collider.gameObject.transform);
-                                hit.collider.gameObject.GetComponent<Soil>().canSet = false;
+                                spawnObj = GameObject.Instantiate(bluecornObj, Vector2.zero, Quaternion.identity);
+                                List<Transform> points = new List<Transform>();
+                                foreach (Transform p in hit.collider.gameObject.transform.GetChild(0).transform)
+                                {
+                                    points.Add(p);
+                                }
+                                hit.collider.gameObject.GetComponent<Soil>().cropCount = 0;
+                                foreach (Transform p in points)
+                                {
+                                    if (p.transform.GetChild(0) != null)
+                                    {
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        spawnObj.transform.parent = p;
+
+                                        hit.collider.gameObject.GetComponent<Soil>().cropCount += 1;
+                                        break;
+                                    }
+                                }
+
+                                if (hit.collider.gameObject.GetComponent<Soil>().cropCount == 9)
+                                {
+                                    hit.collider.gameObject.GetComponent<Soil>().canSet = false;
+                                }
+
+                                spawnObj.transform.localPosition = Vector3.zero;
                                 break;
                             }
                             
@@ -126,8 +231,34 @@ public class CropManager : MonoBehaviour
                             else
                             {
                                 GameManager.Instance.red_wheat_seed -= 1;
-                                spawnObj = GameObject.Instantiate(redWheatObj, Vector2.zero, Quaternion.identity, hit.collider.gameObject.transform);
-                                hit.collider.gameObject.GetComponent<Soil>().canSet = false;
+                                spawnObj = GameObject.Instantiate(redWheatObj, Vector2.zero, Quaternion.identity);
+                                List<Transform> points = new List<Transform>();
+                                foreach (Transform p in hit.collider.gameObject.transform.GetChild(0).transform)
+                                {
+                                    points.Add(p);
+                                }
+                                hit.collider.gameObject.GetComponent<Soil>().cropCount = 0;
+                                foreach (Transform p in points)
+                                {
+                                    if (p.transform.GetChild(0) != null)
+                                    {
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        spawnObj.transform.parent = p;
+
+                                        hit.collider.gameObject.GetComponent<Soil>().cropCount += 1;
+                                        break;
+                                    }
+                                }
+
+                                if (hit.collider.gameObject.GetComponent<Soil>().cropCount == 9)
+                                {
+                                    hit.collider.gameObject.GetComponent<Soil>().canSet = false;
+                                }
+
+                                spawnObj.transform.localPosition = Vector3.zero;
                                 break;
                             }
                                 
@@ -135,7 +266,7 @@ public class CropManager : MonoBehaviour
                 }
                 else
                 {
-                    GameManager.Instance.Error("이미 설치한 구역입니다!");
+                    GameManager.Instance.Error("더이상 설치할 수 없습니다!");
                 }
                
             }
