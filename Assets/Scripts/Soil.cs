@@ -32,7 +32,10 @@ public class Soil : MonoBehaviour
     {
         slider.value = watering;
         text.text = watering + "/100";
-
+        if(watering < 0)
+        {
+            watering = 0;
+        }
 
         if(cropCount ==9)
         {

@@ -43,6 +43,7 @@ public class CropManager : MonoBehaviour
             else if(canSeeding )
             {
                 seedingUI.SetActive(false);
+                SeedSelectObj.SetActive(false);
                 canSeeding = false;
                 GameManager.Instance.seeds = seedType.None;
             }

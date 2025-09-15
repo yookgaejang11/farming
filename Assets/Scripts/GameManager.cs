@@ -3,6 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum waterCanLevel
+{
+    basic,
+    rare
+}
+
+public enum GarrageLevel
+{
+    Level1,
+    Level2,
+    Level3
+}
+
 public class GameManager : MonoBehaviour
 {
     public enum playerHoe
@@ -44,14 +57,20 @@ public class GameManager : MonoBehaviour
     public Text time;
     public float inGameTime =10; //1초당 12분  5초는 1시간 1분에 12시간 2분에 하루
 
-    public Text ErrorTxt;
 
+    public GameObject GarrageUI;
+    public GameObject garrageTxt;
+    public bool garrageActive = false;
+
+
+    public Text ErrorTxt;
+    public GameObject GetWaterUI;
     public int wheat_seed = 0;
     public int corn_seed = 0;
     public int carrot_seed = 0;
     public int blue_corn_seed = 0;
     public int red_wheat_seed = 0;
-
+    public int allCount = 0;
 
     public int wheat = 0;
     public int corn = 0;
@@ -93,6 +112,11 @@ public class GameManager : MonoBehaviour
                 whether = whether_type.ice_ball;
                 break;
         }
+    }
+
+    public int AllCount()
+    {
+        return wheat + corn + carrot + blue_corn + red_wheat + wheat_seed + corn_seed + carrot_seed + blue_corn_seed + red_wheat_seed;
     }
 
     // Update is called once per frame
