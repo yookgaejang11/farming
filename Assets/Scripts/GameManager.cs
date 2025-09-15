@@ -64,7 +64,6 @@ public class GameManager : MonoBehaviour
 
 
     public Text ErrorTxt;
-    public GameObject GetWaterUI;
     public int wheat_seed = 0;
     public int corn_seed = 0;
     public int carrot_seed = 0;

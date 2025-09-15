@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FarmingManager : MonoBehaviour
 {
-    garrage garrage;
+    public garrage garrage;
     private static FarmingManager instance;
     public GameObject activeUi;
     public RaycastHit2D hit;
